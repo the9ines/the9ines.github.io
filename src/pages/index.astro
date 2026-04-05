@@ -97,34 +97,32 @@ import '../styles/global.css'
 				const createFaviconAnimation = () => {
 					clearInterval(animationInterval);
 
+					const makeSvg = (fontSize: number, color: string) =>
+						`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="#000"/><text x="64" y="${64 + fontSize * 0.35}" text-anchor="middle" font-family="ui-monospace,monospace" font-size="${fontSize}" font-weight="700" fill="${color}">e</text></svg>`;
+
+					const link = document.getElementById("dynamic-favicon") as HTMLLinkElement;
+					if (!link) return;
+
 					if (motionQuery.matches) {
-						const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="#000"/><text x="64" y="96" text-anchor="middle" font-family="ui-monospace,monospace" font-size="100" font-weight="700" fill="#a4e203">e</text></svg>`;
-						const link = document.getElementById("dynamic-favicon") as HTMLLinkElement;
-						if (link) { link.href = `data:image/svg+xml;base64,${btoa(svg)}`; }
+						link.href = `data:image/svg+xml;base64,${btoa(makeSvg(85, '#a4e203'))}`;
 						return;
 					}
 
-					const frames: string[] = [];
-					const numFrames = 20;
-					// Pulse curve: brightness oscillates for the lime green
+					// Size + color pulse curve (matching doseface rhythm)
 					const pulseCurve = [
-						65, 70, 75, 80, 85,
-						85, 82, 80, 77, 75,
-						72, 70, 67, 65, 62,
-						60, 60, 62, 65, 65
+						{ sz: 60, l: 45 }, { sz: 65, l: 50 }, { sz: 72, l: 55 }, { sz: 78, l: 60 }, { sz: 85, l: 65 },
+						{ sz: 92, l: 70 }, { sz: 100, l: 78 }, { sz: 108, l: 82 }, { sz: 115, l: 85 }, { sz: 115, l: 85 },
+						{ sz: 108, l: 82 }, { sz: 100, l: 78 }, { sz: 92, l: 70 }, { sz: 85, l: 65 }, { sz: 78, l: 60 },
+						{ sz: 72, l: 55 }, { sz: 65, l: 50 }, { sz: 60, l: 45 }, { sz: 58, l: 42 }, { sz: 60, l: 45 },
 					];
 
-					for (let i = 0; i < numFrames; i++) {
-						const l = pulseCurve[i];
-						const color = `hsl(80, 97%, ${l}%)`;
-						const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="#000"/><text x="64" y="96" text-anchor="middle" font-family="ui-monospace,monospace" font-size="100" font-weight="700" fill="${color}">e</text></svg>`;
-						frames.push(`data:image/svg+xml;base64,${btoa(svg)}`);
-					}
+					const frames = pulseCurve.map(({ sz, l }) =>
+						`data:image/svg+xml;base64,${btoa(makeSvg(sz, `hsl(80, 97%, ${l}%)`))}`
+					);
 
 					let frameIndex = 0;
 					animationInterval = setInterval(() => {
-						const link = document.getElementById("dynamic-favicon") as HTMLLinkElement;
-						if (link) { link.href = frames[frameIndex]; }
+						link.href = frames[frameIndex];
 						frameIndex = (frameIndex + 1) % frames.length;
 					}, 100);
 				};
