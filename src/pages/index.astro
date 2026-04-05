@@ -5,7 +5,7 @@ import '../styles/global.css'
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content="Evan Oberfelder — software engineer, founder of The 9ine's Agency" />
 		<meta property="og:title" content="evanacci" />
@@ -89,5 +89,49 @@ import '../styles/global.css'
 				}
 			]
 		})} />
+		<script>
+			(() => {
+				const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+				let animationInterval: ReturnType<typeof setInterval>;
+
+				const createFaviconAnimation = () => {
+					clearInterval(animationInterval);
+
+					if (motionQuery.matches) {
+						const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="#000"/><text x="64" y="96" text-anchor="middle" font-family="ui-monospace,monospace" font-size="100" font-weight="700" fill="#a4e203">e</text></svg>`;
+						const link = document.getElementById("dynamic-favicon") as HTMLLinkElement;
+						if (link) { link.href = `data:image/svg+xml;base64,${btoa(svg)}`; }
+						return;
+					}
+
+					const frames: string[] = [];
+					const numFrames = 20;
+					// Pulse curve: brightness oscillates for the lime green
+					const pulseCurve = [
+						65, 70, 75, 80, 85,
+						85, 82, 80, 77, 75,
+						72, 70, 67, 65, 62,
+						60, 60, 62, 65, 65
+					];
+
+					for (let i = 0; i < numFrames; i++) {
+						const l = pulseCurve[i];
+						const color = `hsl(80, 97%, ${l}%)`;
+						const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="#000"/><text x="64" y="96" text-anchor="middle" font-family="ui-monospace,monospace" font-size="100" font-weight="700" fill="${color}">e</text></svg>`;
+						frames.push(`data:image/svg+xml;base64,${btoa(svg)}`);
+					}
+
+					let frameIndex = 0;
+					animationInterval = setInterval(() => {
+						const link = document.getElementById("dynamic-favicon") as HTMLLinkElement;
+						if (link) { link.href = frames[frameIndex]; }
+						frameIndex = (frameIndex + 1) % frames.length;
+					}, 100);
+				};
+
+				createFaviconAnimation();
+				motionQuery.addEventListener('change', createFaviconAnimation);
+			})();
+		</script>
 	</body>
 </html>
