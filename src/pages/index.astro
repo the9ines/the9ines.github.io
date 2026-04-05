@@ -1,0 +1,75 @@
+---
+import '../styles/global.css'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content="Evan Oberfelder — software engineer, founder of The 9ine's Agency" />
+		<meta property="og:title" content="evanacci" />
+		<meta property="og:description" content="Evan Oberfelder — software engineer, founder of The 9ine's Agency" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://evanacci.com" />
+		<meta name="twitter:card" content="summary" />
+		<title>evanacci</title>
+	</head>
+	<body>
+		<div class="min-h-screen bg-black flex flex-col items-center justify-center relative">
+			<div class="text-center">
+				<a
+					href="https://github.com/Evanacci"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-sm font-mono tracking-wide animate-pulse motion-safe:animate-pulse text-gradient-lime hover:opacity-80 transition-opacity"
+				>
+					evanacci
+				</a>
+			</div>
+
+			<div class="absolute bottom-8 text-center">
+				<p style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9px; letter-spacing: 0.05em; color: rgba(255,255,255,0.2);">
+					by <a
+						href="https://the9ines.com"
+						target="_blank"
+						class="credit-link"
+					>the9ines</a>
+				</p>
+			</div>
+		</div>
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "Person",
+					"@id": "https://evanacci.com/#person",
+					"name": "Evan Oberfelder",
+					"alternateName": "evanacci",
+					"url": "https://evanacci.com",
+					"worksFor": { "@id": "https://the9ines.com/#organization" },
+					"sameAs": [
+						"https://github.com/Evanacci",
+						"https://the9ines.com",
+						"https://www.linkedin.com/in/evan-oberfelder-1024b777/",
+						"https://www.instagram.com/0xevan/"
+					]
+				},
+				{
+					"@type": "Organization",
+					"@id": "https://the9ines.com/#organization",
+					"name": "The 9ine's Agency",
+					"url": "https://the9ines.com"
+				},
+				{
+					"@type": "WebSite",
+					"@id": "https://evanacci.com/#website",
+					"name": "evanacci",
+					"url": "https://evanacci.com",
+					"author": { "@id": "https://evanacci.com/#person" }
+				}
+			]
+		})} />
+	</body>
+</html>

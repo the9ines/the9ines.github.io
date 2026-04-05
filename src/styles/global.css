@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-jetbrains: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* evanacci lime gradient text */
+@utility text-gradient-lime {
+  background: linear-gradient(
+    180deg,
+    #c8f540 0%,
+    #a4e203 35%,
+    #7eb802 65%,
+    #5a8a01 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* the9ines pink gradient text (for "by the9ines" hover) */
+@utility text-gradient-pink {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 141, 197) 0%,
+    rgb(220, 100, 160) 35%,
+    rgb(180, 65, 125) 65%,
+    rgb(140, 35, 90) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body {
+  background: #000000;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(164, 226, 3, 0.3);
+  color: white;
+}
+
+/* "by the9ines" link — pink on hover */
+.credit-link {
+  transition: color 0.4s ease;
+  color: inherit;
+}
+.credit-link:hover {
+  color: rgb(255, 141, 197);
+}
