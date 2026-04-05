@@ -44,30 +44,48 @@ import '../styles/global.css'
 			"@graph": [
 				{
 					"@type": "Person",
-					"@id": "https://evanacci.com/#person",
+					"@id": "https://the9ines.com/#person",
 					"name": "Evan Oberfelder",
 					"alternateName": "evanacci",
-					"url": "https://evanacci.com",
+					"jobTitle": "Owner",
+					"url": "https://the9ines.com",
 					"worksFor": { "@id": "https://the9ines.com/#organization" },
+					"address": {
+						"@type": "PostalAddress",
+						"addressLocality": "Austin",
+						"addressRegion": "TX",
+						"addressCountry": "US"
+					},
 					"sameAs": [
 						"https://github.com/Evanacci",
 						"https://the9ines.com",
 						"https://www.linkedin.com/in/evan-oberfelder-1024b777/",
-						"https://www.instagram.com/0xevan/"
+						"https://www.instagram.com/0xevan/",
+						"https://www.facebook.com/evan.oberfelder.37",
+						"https://github.com/the9ines"
 					]
 				},
 				{
 					"@type": "Organization",
 					"@id": "https://the9ines.com/#organization",
 					"name": "The 9ine's Agency",
-					"url": "https://the9ines.com"
+					"url": "https://the9ines.com",
+					"logo": "https://the9ines.com/favicon.svg",
+					"founder": { "@id": "https://the9ines.com/#person" },
+					"description": "Digital agency specializing in web development, e-commerce, and SEO. Based in Austin, Texas.",
+					"address": {
+						"@type": "PostalAddress",
+						"addressLocality": "Austin",
+						"addressRegion": "TX",
+						"addressCountry": "US"
+					}
 				},
 				{
 					"@type": "WebSite",
-					"@id": "https://evanacci.com/#website",
+					"@id": "https://evanacci.github.io/#website",
 					"name": "evanacci",
-					"url": "https://evanacci.com",
-					"author": { "@id": "https://evanacci.com/#person" }
+					"url": "https://evanacci.github.io",
+					"author": { "@id": "https://the9ines.com/#person" }
 				}
 			]
 		})} />
